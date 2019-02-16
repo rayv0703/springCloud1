@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.broada.one.data.mapper.ScoreMapper" >
+  <resultMap id="DetailResultMap" type="com.broada.one.data.domain.ScoreDetail" >
+    <id column="s_id" property="sId" jdbcType="VARCHAR" />
+    <result column="c_id" property="cId" jdbcType="VARCHAR" />
+    <result column="s_score" property="sScore" jdbcType="INTEGER" />
+    <result column="s_name" property="sName" jdbcType="VARCHAR" />
+    <result column="s_birth" property="sBirth" jdbcType="VARCHAR" />
+    <result column="s_sex" property="sSex" jdbcType="VARCHAR" />
+    <result column="c_Name" property="cName" jdbcType="VARCHAR" />
+    <result column="t_id" property="tId" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="findAll" resultMap="DetailResultMap">
+SELECT
+t.`s_id`,s.`s_name`,t.`c_id`,c.`c_name`,t.`s_score`
+FROM
+score t
+LEFT JOIN
+student s
+ON t.`s_id`=s.`s_id`
+LEFT JOIN
+course c
+ON t.`c_id`=c.`c_id`
+  </select>
+
+  <select id="queryDetail" resultMap="DetailResultMap">
+    SELECT
+    t.`s_id`,s.`s_name`,t.`c_id`,c.`c_name`,t.`s_score`
+    FROM
+    score t
+    LEFT JOIN
+    student s
+    ON t.`s_id`=s.`s_id`
+    LEFT JOIN
+    course c
+    ON t.`c_id`=c.`c_id`
+    <where>
+      1=1
+      <if test="sId !=null and sId !=''">
+        AND t.`s_id`=#{sId,jdbcType=VARCHAR}
+      </if>
+      <if test="cId !=null and cId !=''">
+        AND t.`c_id`=#{cId,jdbcType=VARCHAR}
+      </if>
+      <if test="sScore !=null and sScore !=''">
+        AND t.`s_score`=#{sScore,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+</mapper>

@@ -1,0 +1,67 @@
+spring:
+  application:
+    name: rayv-mybatis
+  jpa:
+    database: mysql
+    show-sql: true
+# 定义连接池和数据源
+  datasource:
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/test?serverTimezone=GMT%2B8&characterEncoding=UTF-8
+      username: root
+      password: root
+  #集成alibaba的druid
+  #spring.datasource.type = com.alibaba.druid.pool.DruidDataSource
+  #spring.datasource.driver-class-name = com.mysql.jdbc.Driver
+  #spring.datasource.filters = stat
+  #spring.datasource.maxActive = 20
+  #spring.datasource.initialSize = 1
+  #spring.datasource.maxWait = 60000
+  #spring.datasource.minIdle = 1
+  #spring.datasource.timeBetweenEvictionRunsMillis = 60000
+  #spring.datasource.minEvictableIdleTimeMillis = 300000
+  #spring.datasource.validationQuery = select 'x'
+  #spring.datasource.testWhileIdle = true
+  #spring.datasource.testOnBorrow = false
+  #spring.datasource.testOnReturn = false
+  #spring.datasource.poolPreparedStatements = true
+  #spring.datasource.maxOpenPreparedStatements = 20
+
+  redis:
+      host: 127.0.0.1
+      port: 6379
+      jedis:
+        pool:
+          max-active: 8
+          max-wait: 1ms
+          max-idle: 8
+          min-idle: 0
+      #timeout: 0
+
+
+#集成mybatis
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  mapperLocations: classpath*:com/broada/one/data/config/**/*.xml
+  typeAliasesPackage: com.broada.one.data.domain
+#定义服务端口
+server:
+    port: 9000
+    #定义项目
+    #context-path: /vet_vamp_ics
+#注册到eureka
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+
+# 打印sql
+logging:
+  level:
+     com.broada.one.data.mapper : debug
+# 下载本地路径
+local:
+  filepath: E:/temp/
+
+
