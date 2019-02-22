@@ -24,6 +24,9 @@ public class AreasController {
     @ApiOperation(value = "省市区",notes = "省市区联动")
     @RequestMapping(value = "/one/getAreaInfo",method = RequestMethod.GET)
     public Map<String,String> getAreaInfo(){
+
+
+
         Map<String,String> map = areaService.getAreaInfo();
         return map;
     }

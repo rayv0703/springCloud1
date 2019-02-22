@@ -13,6 +13,7 @@
         <option value="$PROJECT_DIR$/rayv-gateway/pom.xml" />
         <option value="$PROJECT_DIR$/rayv-mybatis2/pom.xml" />
         <option value="$PROJECT_DIR$/rayv-mybatis-oracle/pom.xml" />
+        <option value="$PROJECT_DIR$/demo/pom.xml" />
       </list>
     </option>
   </component>
