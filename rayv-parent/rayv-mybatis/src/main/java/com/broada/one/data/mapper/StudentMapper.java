@@ -11,4 +11,6 @@ public interface StudentMapper {
     List<Student> findAll();
 
     Student findBySid(@Param("sId") String sId);
+
+    List<Student> findByIds(@Param("ids") String[] ids);
 }

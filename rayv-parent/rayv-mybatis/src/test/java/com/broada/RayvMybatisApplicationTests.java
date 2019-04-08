@@ -1,5 +1,7 @@
 package com.broada;
 
+import com.broada.one.data.domain.Student;
+import com.broada.one.data.mapper.StudentMapper;
 import com.broada.springboot.RayvMybatisApplication;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -12,6 +14,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -26,6 +29,10 @@ public class RayvMybatisApplicationTests {
 
 	@Autowired
 	StringRedisTemplate stringRedisTemplate;
+
+	@Autowired
+	private StudentMapper studentMapper;
+
 
 	@Test
 	public void contextLoads() throws InterruptedException {
@@ -91,6 +98,12 @@ public class RayvMybatisApplicationTests {
 	public void test08(){
 		System.out.println(stringRedisTemplate.opsForValue().append("multi", "multi"));
 
+	}
+	@Test
+	public void test09(){
+		String[] ids = {"01","02","03"};
+		List<Student> stuList = studentMapper.findByIds(ids);
+		stuList.forEach(stu -> System.out.println(stu));
 	}
 }
 

@@ -6,9 +6,10 @@
     <result column="s_name" property="sName" jdbcType="VARCHAR" />
     <result column="s_birth" property="sBirth" jdbcType="VARCHAR" />
     <result column="s_sex" property="sSex" jdbcType="VARCHAR" />
+    <result column="s_add" property="sAdd" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List">
-    s_id,s_name,s_birth,s_sex
+    s_id,s_name,s_birth,s_sex,s_add
   </sql>
   <select id="findAll" resultMap="BaseResultMap">
     SELECT
@@ -26,5 +27,20 @@
           AND s_id = #{sId,jdbcType = VARCHAR}
       </if>
     </where>
+  </select>
+
+  <select id="findByIds" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from student
+    <where>
+      <if test="ids != null">
+        s_id  in
+        <foreach item="id" index="index" collection="ids"  open="(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+    </where>
+
   </select>
 </mapper>

@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -61,11 +58,22 @@ public class StudentController {
     @RequestMapping(value = "/one/map",method = RequestMethod.GET)
     public Map<String,Object> getMap(){
         HashMap<String, Object> map = new HashMap<>();
-        Student stu = new Student("007", "张大仙", null, "男");
+        Student stu = new Student("007", "张大仙", null, "男","asd");
         map.put("学生",stu);
         map.put("关山","车神");
         map.put("地址",null);
         return map;
+    }
+    @ApiOperation(value = "学生id集合下载",notes = "学生id集合下载")
+    @RequestMapping(value = "/one/mgetStuInfXlx",method = RequestMethod.POST)
+    public ResponseEntity<Resource> getStuInfXlx(@ApiParam(name = "ids",value = "学生id集合",allowMultiple = true, type = "String")@RequestParam(name = "ids") String[] ids){
+        ResponseEntity<Resource> resource = null;
+        try {
+            resource= studentService.getStuInfXlx(ids);
+        }catch (Exception e){
+            throw new RuntimeException();
+        }
+        return resource;
     }
 
 }

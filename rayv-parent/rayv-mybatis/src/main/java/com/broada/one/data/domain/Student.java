@@ -1,23 +1,20 @@
 package com.broada.one.data.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
-
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Student {
 
     private String sId;
     private String sName;
     private String sBirth;
     private String sSex;
+    private String sAdd;
 
-    public Student() {
-    }
-
-    public Student(String sId, String sName, String sBirth, String sSex) {
-        this.sId = sId;
-        this.sName = sName;
-        this.sBirth = sBirth;
-        this.sSex = sSex;
-    }
 }

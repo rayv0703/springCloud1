@@ -25,8 +25,6 @@ public class AreasController {
     @RequestMapping(value = "/one/getAreaInfo",method = RequestMethod.GET)
     public Map<String,String> getAreaInfo(){
 
-
-
         Map<String,String> map = areaService.getAreaInfo();
         return map;
     }
