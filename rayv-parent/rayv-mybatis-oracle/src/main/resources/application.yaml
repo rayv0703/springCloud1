@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: rayv-mybatis-oracle
+  datasource:
+        url: jdbc:oracle:thin:@192.168.80.88:1521:orcl
+        username: scott
+        password: tiger
+        driver-class-name: oracle.jdbc.driver.OracleDriver
+
+  #集成mybatis
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  #mapperLocations: classpath*:com/broada/three/data/config/**/*.xml
+  mapper-locations: classpath*:com/broada/three/data/config/**/*.xml
+  #typeAliasesPackage: com.broada.three.data.domain
+  type-aliases-package: com.broada.three.data.domain
+  #定义服务端口
+server:
+    port: 9002
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+# 打印sql
+logging:
+  level:
+     com.broada.three.data.mapper : debug

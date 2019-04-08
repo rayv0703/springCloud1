@@ -1,10 +1,10 @@
 com\broada\cm\utils\CopyListUtil.class
 com\broada\cm\data\vo\request\TxRequestVo.class
-com\broada\cm\utils\Excel.class
 com\broada\cm\api\mybatis1\StudentInf.class
-com\broada\cm\data\vo\response\TxResponseVo.class
 com\broada\cm\data\vo\request\PaginationRequest.class
 com\broada\cm\data\vo\request\TxInfo.class
 com\broada\cm\data\vo\domain\Student.class
 com\broada\cm\data\vo\response\PaginationResponse.class
+com\broada\cm\utils\Excel.class
+com\broada\cm\data\vo\response\TxResponseVo.class
 com\broada\cm\exception\entity\ErrorInfo.class

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.broada.three.data.mapper.EmpMapper">
+<resultMap id="BaseResultMap" type="com.broada.three.data.domain.Emp">
+    <id column="EMPNO" property="empno" jdbcType="BIGINT"/>
+    <result column="ENAME" property="ename" jdbcType="VARCHAR"/>
+    <result column="JOB" property="job" jdbcType="VARCHAR"/>
+    <result column="MGR" property="mgr" jdbcType="BIGINT"/>
+    <result column="HIREDATE" property="hiredate" jdbcType="TIMESTAMP"/>
+    <result column="SAL" property="sal" jdbcType="DECIMAL"/>
+    <result column="COMM" property="comm" jdbcType="DECIMAL"/>
+    <result column="DEPTNO" property="deptno" jdbcType="BIGINT"/>
+</resultMap>
+
+    <resultMap id="BaseMap" type="com.broada.three.data.domain.EmpDetail">
+        <id column="EMPNO" property="empno" jdbcType="BIGINT"/>
+        <result column="ENAME" property="ename" jdbcType="VARCHAR"/>
+        <result column="JOB" property="job" jdbcType="VARCHAR"/>
+        <result column="MGR" property="mgr" jdbcType="BIGINT"/>
+        <result column="HIREDATE" property="hiredate" jdbcType="TIMESTAMP"/>
+        <result column="SAL" property="sal" jdbcType="DECIMAL"/>
+        <result column="COMM" property="comm" jdbcType="DECIMAL"/>
+        <!--
+        <association property="deptno" column="DEPTNO"
+                     select="com.broada.three.data.mapper.DeptnoMapper.findByDeptno" />-->
+        <association property="dept" javaType="com.broada.three.data.domain.Dept">
+            <id column="DEPTNO" property="deptno"/>
+            <result column="DNAME" property="dname"/>
+            <result column="LOC" property="loc"/>
+        </association>
+    </resultMap>
+<sql id="Base_Column_List">
+    EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,COMM,DEPTNO
+</sql>
+
+<select id="getEmpDetail" parameterType="com.broada.three.data.domain.Emp" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from emp
+    <where>
+        <if test="empno !=null and empno !=''">
+            AND EMPNO = #{empno,jdbcType=BIGINT}
+        </if>
+        <if test="ename !=null and ename !=''">
+            AND ENAME = #{ename,jdbcType=VARCHAR}
+        </if>
+        <if test="job !=null and job !=''">
+            AND JOB = #{job,jdbcType = VARCHAR}
+        </if>
+        <if test="mgr !=null and mgr !=''">
+            AND MGR = #{mgr,jdbcType = BIGINT}
+        </if>
+        <if test="hiredate != null and hiredate != ''">
+            AND HIREDATE = #{hiredate,jdbcType = TIMESTAMP}
+        </if>
+        <if test="sal != null and sal != ''">
+            AND SAL = #{sal,jdbcType = DECIMAL}
+        </if>
+        <if test="comm !=null and comm !=''">
+            AND COMM = #{comm,jdbcType = DECIMAL}
+        </if>
+        <if test="deptno != null and deptno !=''">
+            AND DEPTNO = #{deptno,jdbcType = BIGINT}
+        </if>
+    </where>
+</select>
+
+<select id="getList" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from emp
+</select>
+    <select id="findList" resultMap="BaseMap">
+        SELECT
+        E.EMPNO,E.ENAME,E.JOB,E.MGR,E.HIREDATE,E.SAL,E.COMM,D.DEPTNO,D.DNAME,D.LOC
+        FROM EMP E
+        LEFT JOIN DEPT D
+        ON E.DEPTNO = D.DEPTNO
+    </select>
+
+
+    <select id="searchEmpList" parameterType="com.broada.three.data.domain.EmpBo" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from emp
+        <where>
+            <if test="empno !=null and empno !=''">
+                AND EMPNO = #{empno,jdbcType=BIGINT}
+            </if>
+            <if test="ename!=null and ename!=''">
+                <bind name="pattern" value="'%' + ename + '%'" ></bind>
+                and  ENAME LIKE #{pattern}
+            </if>
+            <if test="job !=null and job !=''">
+                AND JOB = #{job,jdbcType = VARCHAR}
+            </if>
+            <if test="mgr !=null and mgr !=''">
+                AND MGR = #{mgr,jdbcType = BIGINT}
+            </if>
+            <if test="sal != null and sal != ''">
+                AND SAL = #{sal,jdbcType = DECIMAL}
+            </if>
+            <if test="comm !=null and comm !=''">
+                AND COMM = #{comm,jdbcType = DECIMAL}
+            </if>
+            <if test="deptno != null and deptno !=''">
+                AND DEPTNO = #{deptno,jdbcType = BIGINT}
+            </if>
+            <if test="hiredateStart !=null and hiredateStart != ''">
+                AND HIREDATE &gt; = to_date(#{hiredateStart},'yyyy-mm-dd')
+            </if>
+            <if test="hiredateEnd !=null and hiredateEnd != ''">
+                AND HIREDATE &lt; = to_date(#{hiredateEnd},'yyyy-mm-dd')
+            </if>
+        </where>
+    </select>
+
+    <update id="updateEmpInf" parameterType="com.broada.three.data.domain.EmpBo">
+        update emp
+         <set>
+             <if test="ename!=null and ename!=''">
+                  ENAME = #{ename,jdbcType = VARCHAR},
+             </if>
+             <if test="job !=null and job !=''">
+                  JOB = #{job,jdbcType = VARCHAR},
+             </if>
+             <if test="mgr !=null and mgr !=''">
+                  MGR = #{mgr,jdbcType = BIGINT},
+             </if>
+             <if test="sal != null and sal != ''">
+                  SAL = #{sal,jdbcType = DECIMAL},
+             </if>
+             <if test="comm !=null and comm !=''">
+                  COMM = #{comm,jdbcType = DECIMAL},
+             </if>
+             <if test="deptno != null and deptno !=''">
+                  DEPTNO = #{deptno,jdbcType = BIGINT},
+             </if>
+             <if test="hiredate != null ">
+                  HIREDATE = #{hiredate,jdbcType = TIMESTAMP},
+             </if>
+
+         </set>
+        where EMPNO = #{empno,jdbcType = VARCHAR}
+    </update>
+
+    <delete id="deleteEmpInf" parameterType="java.lang.Integer">
+        delete FROM  emp
+        where EMPNO = #{empno , jdbcType = VARCHAR}
+    </delete>
+
+    <insert id="addEmpInf" parameterType="com.broada.three.data.domain.Emp">
+        INSERT INTO EMP
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="empno != null" >
+                EMPNO,
+            </if>
+            <if test="ename != null" >
+                ENAME,
+            </if>
+            <if test="job != null" >
+                JOB,
+            </if>
+            <if test="mgr != null" >
+                MGR,
+            </if>
+            <if test="hiredate != null" >
+                HIREDATE,
+            </if>
+            <if test="sal != null" >
+                SAL,
+            </if>
+            <if test="comm != null" >
+                COMM,
+            </if>
+            <if test="deptno != null" >
+                DEPTNO,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="empno != null" >
+                #{empno,jdbcType=BIGINT},
+            </if>
+            <if test="ename != null" >
+                #{ename,jdbcType=VARCHAR},
+            </if>
+            <if test="job != null" >
+                #{job,jdbcType=VARCHAR},
+            </if>
+            <if test="mgr != null" >
+                #{mgr,jdbcType=BIGINT},
+            </if>
+            <if test="hiredate != null" >
+                #{hiredate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sal != null" >
+                #{sal,jdbcType=DECIMAL},
+            </if>
+            <if test="comm != null" >
+                #{comm,jdbcType=DECIMAL},
+            </if>
+            <if test="deptno != null" >
+                #{deptno,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+
+
+
+</mapper>

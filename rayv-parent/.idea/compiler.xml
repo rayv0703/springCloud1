@@ -2,21 +2,20 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="demo" />
-        <module name="rayv-api" />
-        <module name="rayv-com" />
-        <module name="rayv-elasticsearch" />
-        <module name="rayv-eureka" />
-        <module name="rayv-gateway" />
-        <module name="rayv-mongodb" />
-        <module name="rayv-mybatis" />
         <module name="rayv-mybatis-oracle" />
+        <module name="rayv-mongodb" />
+        <module name="rayv-eureka" />
+        <module name="rayv-api" />
         <module name="rayv-mybatis2" />
-        <module name="rayv-producer" />
+        <module name="rayv-elasticsearch" />
+        <module name="rayv-com" />
+        <module name="rayv-mybatis" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -25,13 +24,23 @@
       <module name="rayv-com" target="1.5" />
       <module name="rayv-elasticsearch" target="1.8" />
       <module name="rayv-eureka" target="1.8" />
-      <module name="rayv-gateway" target="1.8" />
       <module name="rayv-mongodb" target="1.8" />
       <module name="rayv-mybatis" target="1.8" />
       <module name="rayv-mybatis-oracle" target="1.8" />
       <module name="rayv-mybatis2" target="1.8" />
       <module name="rayv-parent" target="1.5" />
-      <module name="rayv-producer" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="demo" options="-parameters" />
+      <module name="rayv-api" options="-parameters" />
+      <module name="rayv-elasticsearch" options="-parameters" />
+      <module name="rayv-eureka" options="-parameters" />
+      <module name="rayv-mongodb" options="-parameters" />
+      <module name="rayv-mybatis" options="-parameters" />
+      <module name="rayv-mybatis-oracle" options="-parameters" />
+      <module name="rayv-mybatis2" options="-parameters" />
+    </option>
   </component>
 </project>
