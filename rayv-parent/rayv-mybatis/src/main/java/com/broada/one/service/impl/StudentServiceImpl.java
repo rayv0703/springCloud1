@@ -55,8 +55,8 @@ public class StudentServiceImpl implements StudentService {
         try {
             Student student = new Student();
             student = studentMapper.findBySid(sId);
-            if (null != student){
-                BeanUtils.copyProperties(student,response);
+            if (null != student) {
+                BeanUtils.copyProperties(student, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,19 +67,19 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public ResponseEntity<Resource> stuInfoDown(String fileNm) {
         ByteArrayOutputStream bos = null;
-        System.out.println("fileNm: "+fileNm);
-        String downFileName = fileNm+".xlsx";
+        System.out.println("fileNm: " + fileNm);
+        String downFileName = fileNm + ".xlsx";
         File file = new File(downFilePath + downFileName);
-        if (!file.exists()){
+        if (!file.exists()) {
             throw new RuntimeException("文件不存在");
         }
-        System.out.println("downFileName: "+downFileName);
-        System.out.println("downFilePath: "+downFilePath);
+        System.out.println("downFileName: " + downFileName);
+        System.out.println("downFilePath: " + downFilePath);
         XSSFWorkbook workbook = null;
         try {
             FileInputStream fis = new FileInputStream(file);
             //读取excel
-            workbook=new XSSFWorkbook(fis);
+            workbook = new XSSFWorkbook(fis);
             bos = new ByteArrayOutputStream();
             workbook.write(bos);
             //workbook.close();
@@ -87,18 +87,18 @@ public class StudentServiceImpl implements StudentService {
             e.printStackTrace();
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Cache-Control","no-cache,no-store,must-revalidate");
-        headers.add("Pragma","no-cache");
-        headers.add("Expires","0");
-        headers.add("charset","utf-8");
+        headers.add("Cache-Control", "no-cache,no-store,must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        headers.add("charset", "utf-8");
         //设置下载文件名
         String filename = null;
-        try{
-            filename = URLEncoder.encode(downFileName,"UTF-8");
-        }catch (Exception e){
+        try {
+            filename = URLEncoder.encode(downFileName, "UTF-8");
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        headers.add("Content-Disposition","attachment;filename=\""+filename+"\"");
+        headers.add("Content-Disposition", "attachment;filename=\"" + filename + "\"");
         Resource resource = new InputStreamResource(new ByteArrayInputStream(bos.toByteArray()));
         return ResponseEntity.ok().headers(headers)
                 .contentType(MediaType.parseMediaType("application/x-msdownload"))
@@ -106,14 +106,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public ResponseEntity<Resource> getStuInfXlx(String[] ids)  {
+    public ResponseEntity<Resource> getStuInfXlx(String[] ids) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
-        ByteArrayOutputStream bos = null;
         String downFileName = null;
 
         Workbook wb = new XSSFWorkbook();
         //标题行抽出字段
-        String[] title = {"序号","学号","姓名", "生日","性别",  "住址" };
+        String[] title = {"序号", "学号", "姓名", "生日", "性别", "住址"};
         //设置sheet名称，并创建新的sheet对象
         String sheetName = "学生信息一览";
         Sheet stuSheet = wb.createSheet(sheetName);
@@ -130,7 +129,7 @@ public class StudentServiceImpl implements StudentService {
         }
         //把从数据库中取得的数据一一写入excel文件中
         Row row = null;
-        List<Student> stuList=studentMapper.findByIds(ids);
+        List<Student> stuList = studentMapper.findByIds(ids);
         log.info(stuList.toString());
         for (int i = 0; i < stuList.size(); i++) {
             //创建list.size()行数据
@@ -144,42 +143,40 @@ public class StudentServiceImpl implements StudentService {
             row.createCell(4).setCellValue(stuList.get(i).getSSex());
             row.createCell(5).setCellValue(stuList.get(i).getSAdd());
         }
-        log.info("excel写入成功");
+
         //设置单元格宽度自适应，在此基础上把宽度调至1.5倍
         for (int i = 0; i < title.length; i++) {
             stuSheet.autoSizeColumn(i, true);
             stuSheet.setColumnWidth(i, stuSheet.getColumnWidth(i) * 15 / 10);
         }
-        log.info("将表格数据输出到流");
+
         //将表格数据输出到流
+        ByteArrayOutputStream bos = null;
         try {
-            //FileInputStream fis = new FileInputStream(file);
-            //读取excel
-            //workbook=new XSSFWorkbook(fis);
             bos = new ByteArrayOutputStream();
             wb.write(bos);
             //workbook.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        log.info("写入到输出流");
+
         //设置文件下载头
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Cache-Control","no-cache,no-store,must-revalidate");
-        headers.add("Pragma","no-cache");
-        headers.add("Expires","0");
-        headers.add("charset","utf-8");
+        headers.add("Cache-Control", "no-cache,no-store,must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        headers.add("charset", "utf-8");
         //设置下载文件名
         String filename = null;
-        downFileName = "学生信息表"+sdf.format(new Date());
-        log.info("设置文件名成功");
-        try{
-            filename = URLEncoder.encode(downFileName,"UTF-8");
-        }catch (Exception e){
+        downFileName = "学生信息表" + sdf.format(new Date()) + ".xlsx";
+
+        try {
+            filename = URLEncoder.encode(downFileName, "UTF-8");
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        log.info("添加头信息");
-        headers.add("Content-Disposition","attachment;filename=\""+filename+"\"");
+
+        headers.add("Content-Disposition", "attachment;filename=\"" + filename + "\"");
         Resource resource = new InputStreamResource(new ByteArrayInputStream(bos.toByteArray()));
         log.info("写入资源文件");
         return ResponseEntity.ok().headers(headers)
