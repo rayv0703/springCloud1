@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/rayv-com/rayv-com.iml" filepath="$PROJECT_DIR$/rayv-com/rayv-com.iml" />
       <module fileurl="file://$PROJECT_DIR$/rayv-elasticsearch/rayv-elasticsearch.iml" filepath="$PROJECT_DIR$/rayv-elasticsearch/rayv-elasticsearch.iml" />
       <module fileurl="file://$PROJECT_DIR$/rayv-eureka/rayv-eureka.iml" filepath="$PROJECT_DIR$/rayv-eureka/rayv-eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rayv-gateway/rayv-gateway.iml" filepath="$PROJECT_DIR$/rayv-gateway/rayv-gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/rayv-mongodb/rayv-mongodb.iml" filepath="$PROJECT_DIR$/rayv-mongodb/rayv-mongodb.iml" />
       <module fileurl="file://$PROJECT_DIR$/rayv-mybatis/rayv-mybatis.iml" filepath="$PROJECT_DIR$/rayv-mybatis/rayv-mybatis.iml" />
       <module fileurl="file://$PROJECT_DIR$/rayv-mybatis-oracle/rayv-mybatis-oracle.iml" filepath="$PROJECT_DIR$/rayv-mybatis-oracle/rayv-mybatis-oracle.iml" />

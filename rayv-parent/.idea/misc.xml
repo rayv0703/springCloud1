@@ -12,6 +12,7 @@
         <option value="$PROJECT_DIR$/rayv-mybatis-oracle/pom.xml" />
         <option value="$PROJECT_DIR$/demo/pom.xml" />
         <option value="$PROJECT_DIR$/rayv-api/pom.xml" />
+        <option value="$PROJECT_DIR$/rayv-gateway/pom.xml" />
       </list>
     </option>
   </component>

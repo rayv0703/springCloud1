@@ -14,6 +14,7 @@
         <module name="rayv-api" />
         <module name="rayv-mybatis2" />
         <module name="rayv-elasticsearch" />
+        <module name="rayv-gateway" />
         <module name="rayv-com" />
         <module name="rayv-mybatis" />
       </profile>
@@ -24,6 +25,7 @@
       <module name="rayv-com" target="1.5" />
       <module name="rayv-elasticsearch" target="1.8" />
       <module name="rayv-eureka" target="1.8" />
+      <module name="rayv-gateway" target="1.8" />
       <module name="rayv-mongodb" target="1.8" />
       <module name="rayv-mybatis" target="1.8" />
       <module name="rayv-mybatis-oracle" target="1.8" />
@@ -37,6 +39,7 @@
       <module name="rayv-api" options="-parameters" />
       <module name="rayv-elasticsearch" options="-parameters" />
       <module name="rayv-eureka" options="-parameters" />
+      <module name="rayv-gateway" options="-parameters" />
       <module name="rayv-mongodb" options="-parameters" />
       <module name="rayv-mybatis" options="-parameters" />
       <module name="rayv-mybatis-oracle" options="-parameters" />
